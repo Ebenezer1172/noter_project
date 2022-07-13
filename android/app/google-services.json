@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993754354986",
+    "project_id": "notter-a4f80",
+    "storage_bucket": "notter-a4f80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993754354986:android:04e1d2b3194160a8abfa53",
+        "android_client_info": {
+          "package_name": "com.example.noter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993754354986-bos77bbt1au4g40s0cb3nsov6vj5qqjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9yXRJBk1XGkDd_b5A4BIxHBdoU7k61Ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993754354986-bos77bbt1au4g40s0cb3nsov6vj5qqjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
