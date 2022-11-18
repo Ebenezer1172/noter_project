@@ -69,11 +69,15 @@ class _FavouritesState extends State<Favourites> {
                          splashColor: Colors.green,
                                  onTap: (){ 
                                  },
-                        child: Card(
-                          color: Colors
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),color: Colors
                               .primaries[Random().nextInt(Colors.primaries.length)],
-                          child: Expanded(
-                            child: Row(
+                            ),
+                          child: 
+                          // Expanded(
+                          //   child: 
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -132,7 +136,7 @@ class _FavouritesState extends State<Favourites> {
                                 ),
                               ],
                             ),
-                          ),
+                          //),
                         ),
                       ),
                     );

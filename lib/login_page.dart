@@ -175,6 +175,7 @@ const Text('Dont have an Account?'),
                             TextButton(
                               child: const Text('Create an Account '),
                               onPressed: () {
+                                 FirebaseAuth.instance.signOut();
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                     builder: (context) => const MyHomePage(),

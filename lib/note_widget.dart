@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +42,7 @@ class _HomeState extends State<Home> {
         },
         child: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation:FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       backgroundColor: Colors.grey[200],
       drawer: Drawer(
         shape: const RoundedRectangleBorder(
@@ -60,19 +62,21 @@ class _HomeState extends State<Home> {
                     children: [
                       const Center(
                         child: ListTile(
-                          title:    Center(
+                          title: Center(
                             child: Text(
                               'Signed in as',
                               style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,color: Colors.white
-                              ),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                           dense: true,
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       ListTile(
                         title: Text(
                           user.email!,
@@ -85,31 +89,33 @@ class _HomeState extends State<Home> {
                 ])),
 
             ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 45),
+              // contentPadding: const EdgeInsets.symmetric(
+              //   horizontal: 45),
               leading: const Icon(
                 Icons.add,
                 size: 40,
               ),
-              
+
               title: const Text("Create New Note"),
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ViewScreen())),
             ),
-            const SizedBox(height:20,),
+            const SizedBox(
+              height: 20,
+            ),
             ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 30),
               leading: const Icon(
                 Icons.favorite_outline,
                 size: 40,
               ),
               title: const Text("Favorites"),
-              onTap: () => 
-              Navigator.pushNamed(context, '/favorite'),
+              onTap: () => Navigator.pushNamed(context, '/favorite'),
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => const Favourites())),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             // ListTile(
             //   leading: const Icon(
             //     Icons.settings,
@@ -121,7 +127,6 @@ class _HomeState extends State<Home> {
             //   },
             // ),
             ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15),
               leading: const Icon(
                 Icons.logout_outlined,
                 size: 40,
@@ -132,15 +137,44 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Utils.showSnackBar('Logged out');
                 Navigator.pushReplacementNamed(context, '/logInPage');
-                 FirebaseAuth.instance.signOut();
+                //  FirebaseAuth.instance.signOut();
+                // Navigator.pop(context);
+                // Navigator.pushReplacementNamed(context, '/home');
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.logout_outlined,
+                size: 40,
+              ),
+              title: Text(
+                'Profile',
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/profile');
+                //  FirebaseAuth.instance.signOut();
                 // Navigator.pop(context);
                 // Navigator.pushReplacementNamed(context, '/home');
               },
             ),
 
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/register');
+              },
+              child: Text('Registration'),
+            ),
             const SizedBox(
               height: 30,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Profile');
+                },
+                child: Text('Profile')),
           ],
         ),
       ),
@@ -165,7 +199,6 @@ class _HomeState extends State<Home> {
           builder: (
             context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
-
           ) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -176,7 +209,6 @@ class _HomeState extends State<Home> {
               if (snapshot.data!.docs.isNotEmpty) {
                 return ListView.builder(
                     physics: const BouncingScrollPhysics(
-
                       parent: AlwaysScrollableScrollPhysics(),
                     ),
                     shrinkWrap: true,
@@ -194,134 +226,169 @@ class _HomeState extends State<Home> {
                                   builder: (context) => EditingPage(
                                         note: note,
                                       ))),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Card(
+                          child:
+                              // ClipRRect(
+                              //   borderRadius: BorderRadius.circular(20),
+                              //   child:
+                              Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
                               color: Colors.primaries[
                                   Random().nextInt(Colors.primaries.length)],
-                              child: Expanded(
-                                  child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                IconButton(
-                                                  // color: _iconColor,
-                                                  onPressed: () {
-                                                    // setState(() {
-                                                    //   // _iconColor = Colors.red;
-                                                    // });
-                                                    // Navigator.pushNamed(context, 'favourite');
-                                                    //                 Navigator.of(context).pushReplacement(
-                                                    //  MaterialPageRoute(
-                                                    //    builder: (context) => const Favourites()));
-                                                    FirebaseFirestore.instance
-                                                        .collection('notter')
-                                                        .doc(note['id'])
-                                                        .update({
-                                                      'isFavourite': true,
-                                                    });
-                                                    Utils.showSnackBar(
-                                                        'Added to Favourites');
-                                                    // const snackBar = SnackBar(
-                                                    //   content: Text(
-                                                    //       'Added to Favourites'),
-                                                    // );
-                                                    // ScaffoldMessenger.of(context)
-                                                    //     .showSnackBar(snackBar);
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons.favorite),
-                                                ),
-                                                // Text('note')
-                                                // Text(DateTime.parse(["createdTime"].D)),
-                                                 Text(DateTime.parse(note
-                                                 ['createdTime'].toDate().toString()).toString() ,),
+                            ),
+                            child:
+                                // Expanded(
+                                //     child:
+                                Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                // color: _iconColor,
+                                                onPressed: () {
+                                                  // setState(() {
+                                                  //   // _iconColor = Colors.red;
+                                                  // });
+                                                  // Navigator.pushNamed(context, 'favourite');
+                                                  //                 Navigator.of(context).pushReplacement(
+                                                  //  MaterialPageRoute(
+                                                  //    builder: (context) => const Favourites()));
+                                                  FirebaseFirestore.instance
+                                                      .collection('notter')
+                                                      .doc(note['id'])
+                                                      .update({
+                                                    'isFavourite': true,
+                                                  });
+                                                  Utils.showSnackBar(
+                                                      'Added to Favourites');
+                                                  // const snackBar = SnackBar(
+                                                  //   content: Text(
+                                                  //       'Added to Favourites'),
+                                                  // );
+                                                  // ScaffoldMessenger.of(context)
+                                                  //     .showSnackBar(snackBar);
+                                                },
+                                                icon: 
+                                                // Badge(badgeContent:Text('7'),
+                                                //   child:
+                                                   const Icon(
+                                                      Icons.favorite_border),
+                                                // ),
+                                              ),
+                                              // Text('note')
+                                              // Text(DateTime.parse(["createdTime"].D)),
+                                              Text(
+                                                DateTime.parse(
+                                                        note['createdTime']
+                                                            .toDate()
+                                                            .toString())
+                                                    .toString(),
+                                              ),
                                               //  Text('eben'),
-                                                const SizedBox(
-                                                  width: 1,
-                                                ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context, builder:  
-                                                      (BuildContext context)
-                                                       {
+                                              const SizedBox(
+                                                width: 1,
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
                                                         return AlertDialog(
-                                                          backgroundColor:Colors.green,
-                                                        title: const Center(child:   Text('Delete Note',)),
-                                                        content: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            ElevatedButton(onPressed: (){
-                                                              Navigator.pop(context);
-                                                            }, child: const Text('Cancel'),),
-                                                            const SizedBox(
-                                                              width: 20,),
-                                                            ElevatedButton(
-                                                              onPressed: (){
-                                                                Navigator.pop(context);
-                                                               FirebaseFirestore.instance
-                                                        .collection('notter')
-                                                        .doc(note['id'])
-                                                        .delete();
-                                                    Utils.showSnackBar(
-                                                        'Note Deleted');
-                                                            }, child: const Text('Confirm')),
-                                                          ],
-                                                        ),
-                                                      );
-                                                      }
-                                                    );
-                                                    // provider.deleteUser(User('title', 'description', 'id', createdTime, isDone, isFavourite));
-                                                   
-                                                    //   const snackBar = SnackBar(
-                                                    //     content: Text('Note Deleted'),
-                                                    //   );
-                                                    //   ScaffoldMessenger.of(context)
-                                                    //       .showSnackBar(snackBar);
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons.delete_forever),
-                                                ),
-                                              ]),
-                                          Text(
-                                            note['title'] ??= '',
-                                            softWrap: true,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                            ),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                          title: const Center(
+                                                              child: Text(
+                                                            'Delete Note',
+                                                          ),),
+                                                          content: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              ElevatedButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'Cancel'),
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'notter')
+                                                                        .doc(note[
+                                                                            'id'])
+                                                                        .delete();
+                                                                    Utils.showSnackBar(
+                                                                        'Note Deleted');
+                                                                  },
+                                                                  child: const Text(
+                                                                      'Confirm')),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      });
+                                                  // provider.deleteUser(User('title', 'description', 'id', createdTime, isDone, isFavourite));
+
+                                                  //   const snackBar = SnackBar(
+                                                  //     content: Text('Note Deleted'),
+                                                  //   );
+                                                  //   ScaffoldMessenger.of(context)
+                                                  //       .showSnackBar(snackBar);
+                                                },
+                                                icon: const Icon(
+                                                    Icons.delete_forever),
+                                              ),
+                                            ]),
+                                        Text(
+                                          note['title'] ??= '',
+                                          softWrap: true,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
                                           ),
-                                          const SizedBox(
-                                            height: 2,
+                                        ),
+                                        const SizedBox(
+                                          height: 2,
+                                        ),
+                                        Text(
+                                          note['description'] ??= '',
+                                          style: const TextStyle(
+                                            fontSize: 15,
                                           ),
-                                          Text(
-                                            note['description'] ??= '',
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              )),
+                                ),
+                              ],
                             ),
+                            // ),
                           ),
+                          //),
                         ),
                       );
                     });
@@ -339,4 +406,4 @@ class _HomeState extends State<Home> {
           }),
     );
   }
-} 
+}

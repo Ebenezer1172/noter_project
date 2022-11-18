@@ -1,4 +1,3 @@
-
 class Note {
   String title;
   String description;
@@ -7,9 +6,17 @@ class Note {
   bool isDone;
   bool isFavourite;
   String email;
-  Note(this.title, this.description, this.id, this.createdTime, 
-  this.isDone,this.isFavourite,this.email,  );
-  
+
+  Note(
+    this.title,
+    this.description,
+    this.id,
+    this.createdTime,
+    this.isDone,
+    this.isFavourite,
+    this.email,
+  );
+
   Note fromJson(Map<String, dynamic> json) => Note(
         json['title'],
         json['description'],
@@ -27,6 +34,6 @@ class Note {
         'createdTime': createdTime,
         'isDone': isDone,
         'isFavourite': isFavourite,
-        'email':email,
+        'email': email,
       };
 }

@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:noter/login_page.dart';
 import 'package:noter/main.dart';
 import 'package:noter/utils.dart'; 
 
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _register() async {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
@@ -42,11 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+       Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LogInPage(),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       print(e);
       Utils.showSnackBar(e.message);
     } 
-     navigatorkey.currentState!.popUntil((route) => route.isFirst);
+    //  navigatorkey.currentState!.popUntil((route) => route.isFirst);
   }
  
    @override
@@ -76,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
-                        color: Colors.pink,
+                        color:Colors.pink,
                       ),),
                 ),
                 

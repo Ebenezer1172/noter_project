@@ -35,6 +35,7 @@ class _EditingPageState extends State<EditingPage> {
     description = widget.note['description'];
     final id = widget.note['id'];
     final email = widget.note['email']; //update
+
     return Form(
       key: _formKey,
       child: Scaffold(
